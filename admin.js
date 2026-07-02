@@ -20,7 +20,9 @@ appId: "1:977710909114:web:9d2a0c63d67e2a0e60e483",
 measurementId: "G-TNKLJR8W12"
 };
 
+const app = initializeApp(firebaseConfig);
 
+const db = getFirestore(app);
 const snapshot = await getDocs(q);
 
 console.log("Usuarios pendientes:", snapshot.size);
@@ -30,11 +32,22 @@ snapshot.forEach((doc)=>{
 });
 
 
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
 
 
+const card = document.createElement("div");
+card.className = "empleado";
+
+card.innerHTML = `
+<strong>${data.name}</strong><br>
+${data.email}<br><br>
+
+<button onclick="asignarBar('${userDoc.id}','bar1')">🍸 Centro</button>
+<button onclick="asignarBar('${userDoc.id}','bar2')">🍹 Norte</button>
+<button onclick="asignarBar('${userDoc.id}','bar3')">🌴 Playa</button>
+<button onclick="asignarBar('${userDoc.id}','bar4')">🍺 Sur</button>
+`;
+
+lista.appendChild(card);
 
 async function cargarPendientes() {
 
