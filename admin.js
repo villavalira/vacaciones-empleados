@@ -50,23 +50,26 @@ if(!lista) return;
 lista.innerHTML = "";
 
 const q = query(
-collection(db,"users"),
-where("barId","==",null)
+    collection(db, "users"),
+    where("barId", "==", null)
 );
 
-snapshot.forEach((userDoc)=>{
-const data =
-userDoc.data();
+const snapshot = await getDocs(q);
+
+console.log(snapshot.size);
+
+snapshot.forEach((userDoc) => {
+    ...
+});
 
 const li =
 document.createElement("li");
 
-li.innerHTML = 
-<strong>${data.name}</strong>
-<br>
+li.innerHTML = `
+<strong>${data.name}</strong><br>
 
-${data.email}
-<br><br>
+${data.email}<br><br>
+
 <button onclick="asignarBar('${userDoc.id}','bar1')">
 🍸 Centro
 </button>
@@ -84,7 +87,7 @@ ${data.email}
 </button>
 
 <hr>
-;
+`;
 
 lista.appendChild(li);
 
