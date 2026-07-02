@@ -8,6 +8,10 @@ import {
   updateDoc,
   doc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCfsaoePqf5xWewNTBV6PmF5cNXWNUy-mk",
@@ -21,7 +25,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
+const auth = getAuth(app);
 async function cargarPendientes() {
 
   const lista = document.getElementById("listaPendientes");
@@ -72,7 +76,17 @@ window.asignarBar = async (uid, barId) => {
 
   alert("Empleado asignado");
 
-  cargarPendientes();
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
+    alert("Debes iniciar sesión.");
+    window.location.href = "index.html";
+    return;
+  }
+
+  await cargarPendientes();
+
+});
 
 };
 
