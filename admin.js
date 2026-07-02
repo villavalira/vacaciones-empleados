@@ -61,7 +61,7 @@ userDoc.data();
 const li =
 document.createElement("li");
 
-li.innerHTML = `
+li.innerHTML = 
 <strong>${data.name}</strong>
 <br>
 
@@ -84,8 +84,7 @@ ${data.email}
 </button>
 
 <hr>
-
-`;
+;
 
 lista.appendChild(li);
 
